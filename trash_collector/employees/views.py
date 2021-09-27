@@ -29,6 +29,20 @@ def index(request):
         }
 
         Customer = apps.get_model('customers.Customer')
-        return render(request, 'employee/index.html', context)
+        return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
-        return HttpResponseRedirect(reverse('employee:index'))
+        return HttpResponseRedirect(reverse('employees:create'))
+
+@login_required
+def create(request):
+    logged_in_user = request.user
+    if request.method == "POST":
+        name_from_form = request.POST.get('name')
+        address_from_form = request.POST.get('address')
+        zip_from_form = request.POST.get('zip_code')
+        new_employee = Employee(name=name_from_form, user=logged_in_user, address=address_from_form, zip_code=zip_from_form)
+        new_employee.save()
+        return HttpResponseRedirect(reverse('employees:index'))
+    else:
+        return render(request, 'employees/create.html')
+
