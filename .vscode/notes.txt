@@ -1,0 +1,6 @@
+Create a clickable button or link that will increment the customer account by $20.
+Encapsulate the logic in another function within view.py
+
+
+Write a function that increments the customer account by $20 and remove the customr from the list.
+Call the function within the index function once the button is clicked.

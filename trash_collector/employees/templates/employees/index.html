@@ -7,7 +7,23 @@
     Hello {{ logged_in_employee.name }}!
     Address: {{ logged_in_employee.address }} {{logged_in_employee.zip_code }}<br />
     <a href= "{% url 'employees:edit_profile' %}">Edit Profile</a>
+
+    <ul>
+      <h1> Today's Pickups</h1>
+      <h2>Recurring Pickups</h2>
+      {% for customer in todays_pickups %}
+      <li>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}</li> 
+    </ul>
+    {% endfor %}
+
+    <h2>One-Time Pickups</h2>
+    {% for customer in one_time_pickups %}
+    <li>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}</li>
+  </ul>
+  {% endfor %}
+
   {% else %}
+   
     <p>You are at the employee index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>
     <a href="{% url 'accounts:register' %}">Sign Up</a>
