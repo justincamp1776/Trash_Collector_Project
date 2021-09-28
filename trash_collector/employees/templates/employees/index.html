@@ -5,6 +5,7 @@
 {% block content %}
   {% if user.is_authenticated %}
     Hello Employee {{ user.username }}!
+    <a href= "{% url 'employees:edit_profile' %}">Edit Profile</a>
   {% else %}
     <p>You are at the employee index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>
