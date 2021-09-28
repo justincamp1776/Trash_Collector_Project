@@ -19,7 +19,7 @@ from datetime import datetime
 def index(request):
     # The following line will get the logged-in user (if there is one) within any view function
 
-    today2 = determineDay()
+    today2 = determine_day()
 
     logged_in_user = request.user
     try:
@@ -56,7 +56,7 @@ def index(request):
 
 
 
-def determineDay():
+def determine_day():
     today2 = date.today()
     today = today2.weekday()
     if today == 0:
@@ -74,6 +74,9 @@ def determineDay():
     elif today == 6:
         return "Sunday"
 
+def confirm_pickup(request):
+     Customer = apps.get_model('customers.Customer')
+    
 
 @login_required
 def create(request):
