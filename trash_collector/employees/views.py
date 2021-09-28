@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from .models import Employee
 from datetime import date
+from customers.models import Customer
 
 # Create your views here.
 
@@ -29,6 +30,7 @@ def index(request):
         }
 
         Customer = apps.get_model('customers.Customer')
+
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:create'))
@@ -53,7 +55,7 @@ def edit_profile(request):
     if request.method == "POST":
         name_from_form = request.POST.get('name')
         address_from_form = request.POST.get('address')
-        zip_from_form = request.POST.get('zip code')
+        zip_from_form = request.POST.get('zip_code')
         logged_in_employee.name = name_from_form
         logged_in_employee.address = address_from_form
         logged_in_employee.zip_code = zip_from_form
