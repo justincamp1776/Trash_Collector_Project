@@ -4,7 +4,7 @@
 
 {% block content %}
   {% if user.is_authenticated %}
-    Hello {{ user.username }}!
+    Hello {{ logged_in_employee.name }}!
     Address: {{ logged_in_employee.address }} {{logged_in_employee.zip_code }}<br />
     <a href= "{% url 'employees:edit_profile' %}">Edit Profile</a>
 
