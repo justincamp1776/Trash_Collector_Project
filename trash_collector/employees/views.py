@@ -35,25 +35,22 @@ def index(request):
 
         Customer = apps.get_model('customers.Customer')
         todays_pickups = Customer.objects.filter(
-            zip_code=logged_in_employee.zip_code).filter(weekly_pickup=today2).exclude(suspend_start__lte=today, suspend_end__gte=today)
-        
+            zip_code=logged_in_employee.zip_code).filter(weekly_pickup=today2).exclude(suspend_start__lte=today, suspend_end__gte=today).exclude(
+            date_of_last_pickup = today)
 
         # today_pickups = customers_in_zip.objects.filter(weekly_pickup=today2)
         one_time_pickups = Customer.objects.filter(
-            zip_code=logged_in_employee.zip_code).filter(one_time_pickup=today).exclude(suspend_start__lte=today, suspend_end__gte=today)
-        
+            zip_code=logged_in_employee.zip_code).filter(one_time_pickup=today).exclude(suspend_start__lte=today, suspend_end__gte=today).exclude(
+            date_of_last_pickup = today)
+
         context = {
             'todays_pickups': todays_pickups,
-            'one_time_pickups' : one_time_pickups
+            'one_time_pickups': one_time_pickups
         }
-
-        
 
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:create'))
-
-
 
 
 def determine_day():
@@ -64,7 +61,7 @@ def determine_day():
     elif today == 1:
         return "Tuesday"
     elif today == 2:
-        return "Wednsday"
+        return "Wednesday"
     elif today == 3:
         return "Thursday"
     elif today == 4:
@@ -74,9 +71,24 @@ def determine_day():
     elif today == 6:
         return "Sunday"
 
-def confirm_pickup(request):
-     Customer = apps.get_model('customers.Customer')
-    
+def confirm_pickup(request, customer_id):
+    try:
+        Customer = apps.get_model('customers.Customer')
+        customer_to_update = Customer.objects.get(id=customer_id)
+        customer_to_update.balance += 20
+        customer_to_update.date_of_last_pickup = date.today()
+        customer_to_update.save()
+
+        return render(request, 'employees/index.html')
+
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('employees:index'))
+
+
+
+
+
+
 
 @login_required
 def create(request):

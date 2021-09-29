@@ -9,16 +9,16 @@
     <a href= "{% url 'employees:edit_profile' %}">Edit Profile</a>
 
     <ul>
-      <h1> Today's Pickups</h1>
+      <h6> Today's Pickups</h6>
       <h2>Recurring Pickups</h2>
       {% for customer in todays_pickups %}
-      <li>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}</li> 
+      <li>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}</li> -  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm Pickup</a>
     </ul>
     {% endfor %}
 
     <h2>One-Time Pickups</h2>
     {% for customer in one_time_pickups %}
-    <li>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}</li>
+    <li>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}</li> -  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm Pickup</a>
   </ul>
   {% endfor %}
 
