@@ -102,6 +102,10 @@ def view_schedule(request, week_day):
 
 
 
+def view_schedule(request):
+    pass
+
+
 @login_required
 def create(request):
     logged_in_user = request.user
