@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block navbar %}
-    <a class="nav-item nav-link" href="#jump_to_home">Home</a>
-    <a class="nav-item nav-link" href="#jump_to_customers">My Customers</a>
-    <a class="nav-item nav-link" href="#jump_to_edit_profile">Edit Profile</a>
+
+
+    <a class="nav-item nav-link" href="{% url 'employees:index' %}">Home</a>
+    <a class="nav-item nav-link" href="{% url 'employees:edit_profile' %}">Edit Profile</a>
+    
 {% endblock %}

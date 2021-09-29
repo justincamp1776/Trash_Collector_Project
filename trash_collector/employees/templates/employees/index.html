@@ -8,19 +8,28 @@
     Address: {{ logged_in_employee.address }} {{logged_in_employee.zip_code }}<br />
     <a href= "{% url 'employees:edit_profile' %}">Edit Profile</a>
 
+
+    <h5>Today's Pickups</h5>
     <ul>
-      <h6> Today's Pickups</h6>
-      <h2>Recurring Pickups</h2>
       {% for customer in todays_pickups %}
       <li>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}</li> -  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm Pickup</a>
+      {% endfor %}
     </ul>
-    {% endfor %}
 
-    <h2>One-Time Pickups</h2>
-    {% for customer in one_time_pickups %}
-    <li>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}</li> -  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm Pickup</a>
-  </ul>
-  {% endfor %}
+    <ul>
+      {% for customer in one_time_pickups %}
+      <li>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}</li> -  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm Pickup</a>
+      {% endfor %}
+    </ul>
+  
+    <h5>Select Day To View Scheduled Pickups</h5>
+    <a href= "{% url 'employees:view_schedule' 'Monday' %}">Monday</a>
+    <a href= "{% url 'employees:view_schedule' 'Tuesday' %}">Tuesday</a>
+    <a href= "{% url 'employees:view_schedule' 'Wednesday'  %}">Wednesday</a>
+    <a href= "{% url 'employees:view_schedule' 'Thursday' %}">Thursday</a>
+    <a href= "{% url 'employees:view_schedule' 'Friday' %}">Friday</aview
+
+
 
   {% else %}
    

@@ -1,0 +1,12 @@
+{% extends 'employee_base.html' %}
+
+{% block title %} Daily Schedule {% endblock %}
+
+{% block header %} Scheduled Pickups: {% endblock %}
+
+{% block content %}
+
+{% for customer in future_pickups %}
+    {{customer.name}} - {{customer.address}} - {{customer.zip_code}}
+{% endfor %}
+{% endblock %}

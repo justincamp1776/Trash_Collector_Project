@@ -86,7 +86,19 @@ def confirm_pickup(request, customer_id):
 
 
 
+def view_schedule(request, week_day):
+    try:
+        Customer = apps.get_model('customers.Customer')
+        future_pickups = Customer.objects.filter(weekly_pickup = week_day)
 
+
+        context = {
+            'future_pickups': future_pickups,
+
+        }
+        return render(request, 'employees/view_schedule.html', context)
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('employees:index'))
 
 
 
