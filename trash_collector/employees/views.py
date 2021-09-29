@@ -78,6 +78,10 @@ def confirm_pickup(request):
      Customer = apps.get_model('customers.Customer')
     
 
+def view_schedule(request):
+    pass
+
+
 @login_required
 def create(request):
     logged_in_user = request.user
