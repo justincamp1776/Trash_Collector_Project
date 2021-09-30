@@ -28,11 +28,6 @@ def index(request):
 
         today = date.today()
 
-        context = {
-            'logged_in_employee': logged_in_employee,
-            'today': today
-        }
-
         Customer = apps.get_model('customers.Customer')
         todays_pickups = Customer.objects.filter(
             zip_code=logged_in_employee.zip_code).filter(weekly_pickup=today2).exclude(suspend_start__lte=today, suspend_end__gte=today).exclude(
@@ -44,6 +39,8 @@ def index(request):
             date_of_last_pickup = today)
 
         context = {
+            'logged_in_employee': logged_in_employee,
+            'today': today,
             'todays_pickups': todays_pickups,
             'one_time_pickups': one_time_pickups
         }
@@ -51,6 +48,22 @@ def index(request):
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:create'))
+
+
+@login_required
+def view_profile(request):
+    try:
+        logged_in_user = request.user
+
+        logged_in_employee = Employee.objects.get(user=logged_in_user)
+
+        context = {
+            'logged_in_employee' : logged_in_employee
+        }
+
+        return render(request, 'employees/profile.html', context)
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('employees:index'))
 
 
 def determine_day():
@@ -101,9 +114,6 @@ def view_schedule(request, week_day):
         return HttpResponseRedirect(reverse('employees:index'))
 
 
-
-def view_schedule(request):
-    pass
 
 
 @login_required

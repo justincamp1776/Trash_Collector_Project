@@ -1,40 +1,65 @@
 {% extends 'employee_base.html' %}
+{% load static %}
+{% block title %} Employee Home {% endblock %}
 
-{% block title %}{% block header %} Employee Home {% endblock %}{% endblock %}
+{% block header %} Employee Home {% endblock %}
+
+
+
 
 {% block content %}
   {% if user.is_authenticated %}
-    Hello {{ logged_in_employee.name }}!
-    Address: {{ logged_in_employee.address }} {{logged_in_employee.zip_code }}<br />
-    <a href= "{% url 'employees:edit_profile' %}">Edit Profile</a>
 
 
-    <h5>Today's Pickups</h5>
-    <ul>
-      {% for customer in todays_pickups %}
-      <li>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}</li> -  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm Pickup</a>
-      {% endfor %}
-    </ul>
+      <h6>Hello {{ logged_in_employee.name }}!</h6>
 
-    <ul>
-      {% for customer in one_time_pickups %}
-      <li>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}</li> -  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm Pickup</a>
-      {% endfor %}
-    </ul>
+      <div class="container">
+        <div class="row">
+          <div style=" text-align:left"class = "col-md-6">
+            <h5 style="text-align:left; margin-bottom: 40px;"> Pickups Scheduled On {{today}}:</h5>
+            
+              {% for customer in todays_pickups %}
+              <p>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }} -  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm</a></p>
+              {% endfor %}
+            
+    
+            <ul>
+              {% for customer in one_time_pickups %}
+              <li>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}<a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm</a></li>
+              {% endfor %}
+            </ul>
+
+          </div>
+         
+          <div style=" text-align:right"class = "col-md-6">
+            <h5 >Daily View</h5>
+            <a class="btn btn-primary"href= "{% url 'employees:view_schedule' 'Monday' %}" role="button">Monday</a><br><br>
+            <a class="btn btn-primary"href= "{% url 'employees:view_schedule' 'Tuesday' %}" role="button">Tuesday</a><br><br>
+            <a class="btn btn-primary"href= "{% url 'employees:view_schedule' 'Wednesday' %}" role="button">Wednesday</a><br><br>
+            <a class="btn btn-primary"href= "{% url 'employees:view_schedule' 'Thursday' %}" role="button">Thursday</a><br><br>
+            <a class="btn btn-primary"href= "{% url 'employees:view_schedule' 'Friday' %}" role="button">Friday</a>
+
+          </div>
+          <div class = "col-md-2"></div>
+        </div>
+      </div>
+
+     
+
+       
+        
+ 
+        
+        
+
+
+
+      {% else %}
+      
+        <p>You are at the employee index, but you are not logged in.</p>
+        <a href="{% url 'login' %}">Log In</a>
+        <a href="{% url 'accounts:register' %}">Sign Up</a>
+      {% endif %}
   
-    <h5>Select Day To View Scheduled Pickups</h5>
-    <a href= "{% url 'employees:view_schedule' 'Monday' %}">Monday</a>
-    <a href= "{% url 'employees:view_schedule' 'Tuesday' %}">Tuesday</a>
-    <a href= "{% url 'employees:view_schedule' 'Wednesday'  %}">Wednesday</a>
-    <a href= "{% url 'employees:view_schedule' 'Thursday' %}">Thursday</a>
-    <a href= "{% url 'employees:view_schedule' 'Friday' %}">Friday</aview
-
-
-
-  {% else %}
-   
-    <p>You are at the employee index, but you are not logged in.</p>
-    <a href="{% url 'login' %}">Log In</a>
-    <a href="{% url 'accounts:register' %}">Sign Up</a>
-  {% endif %}
+</div>
 {% endblock %}

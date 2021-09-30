@@ -10,6 +10,6 @@ urlpatterns = [
     path('create/', views.create, name="create"),
     path('edit_profile/', views.edit_profile, name="edit_profile"),
     path('<int:customer_id>/', views.confirm_pickup, name="confirm_pickup"),
-    path('view_schedule/<str:week_day>',
-         views.view_schedule, name="view_schedule")
+    path('view_schedule/<str:week_day>',views.view_schedule, name="view_schedule"),
+    path('profile/', views.view_profile, name="profile")
 ]

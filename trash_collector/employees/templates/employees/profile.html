@@ -1,0 +1,21 @@
+{% extends 'employee_base.html' %}
+
+{% block title %} Employee Profile {% endblock %}
+
+{% block header %} Employee Profile {% endblock %}
+<br>
+<br>
+<br>
+
+{% block content %}
+
+
+
+<p style="margin-top:50px;">Hello {{ logged_in_employee.name }}!</p>
+<p  ><em>User Name:</em> {{user.username}}</p>
+<p ><em>Address:</em> {{ logged_in_employee.address }} </p>
+<p > <em>Zip Code:</em>{{logged_in_employee.zip_code }} </p>
+
+<a href= "{% url 'employees:edit_profile' %}">Edit Profile</a>
+
+{% endblock %}
