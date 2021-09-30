@@ -15,34 +15,39 @@
 
       <div class="container">
         <div class="row">
-          <div style=" text-align:left"class = "col-md-6">
-            <h5 style="text-align:left; margin-bottom: 40px;"> Pickups Scheduled On {{today}}:</h5>
-            
-              {% for customer in todays_pickups %}
-              <p>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }} -  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm</a></p>
-              {% endfor %}
-            
-              {% for customer in one_time_pickups %}
-              <p>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}<a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm</a></p>
-              {% endfor %}
+            <div style=" text-align:center; margin-bottom: 50px;" class = "col-md-12">
+              <h5 ><strong>Daily View</strong></h5>
+              <div class="btn-group">
+              <a class="btn btn-secondary"href= "{% url 'employees:view_schedule' 'Monday' %}" role="button">Monday</a><br><br>
+              <a class="btn btn-secondary"href= "{% url 'employees:view_schedule' 'Tuesday' %}" role="button">Tuesday</a><br><br>
+              <a class="btn btn-light"href= "{% url 'employees:view_schedule' 'Wednesday' %}" role="button">Wednesday</a><br><br>
+              <a class="btn btn-secondary"href= "{% url 'employees:view_schedule' 'Thursday' %}" role="button">Thursday</a><br><br>
+              <a class="btn btn-secondary"href= "{% url 'employees:view_schedule' 'Friday' %}" role="button">Friday</a>
+            </div>
           </div>
-         
-          <div style=" text-align:right"class = "col-md-6">
-            <h5 >Daily View</h5>
-            <a class="btn btn-primary"href= "{% url 'employees:view_schedule' 'Monday' %}" role="button">Monday</a><br><br>
-            <a class="btn btn-primary"href= "{% url 'employees:view_schedule' 'Tuesday' %}" role="button">Tuesday</a><br><br>
-            <a class="btn btn-primary"href= "{% url 'employees:view_schedule' 'Wednesday' %}" role="button">Wednesday</a><br><br>
-            <a class="btn btn-primary"href= "{% url 'employees:view_schedule' 'Thursday' %}" role="button">Thursday</a><br><br>
-            <a class="btn btn-primary"href= "{% url 'employees:view_schedule' 'Friday' %}" role="button">Friday</a>
-
-          </div>
-          <div class = "col-md-2"></div>
-        </div>
+       </div>
       </div>
 
-     
+      <div class="row">
+        <div class= "col-md-3"></div>
+        <div class= "col-md-6">
 
-       
+          <h5 style="text-align:center; margin-bottom: 40px; margin-top: 50px;"> Today's Pickups:</h5>
+            
+          {% for customer in todays_pickups %}
+          <div style="text-align: left; ">
+          <p><strong>{{ customer.name }} </strong> {{customer.address}}  {{ customer.zip_code }} <em>Balance:</em> {{ customer.balance }}  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm</a></p>
+          {% endfor %}
+        
+          {% for customer in one_time_pickups %}
+          <p><strong>{{ customer.name }} </strong> {{customer.address}}  {{ customer.zip_code }} <em>Balance:</em> {{ customer.balance }}  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm</a></p>
+          {% endfor %}
+        </div>
+        </div>
+        <div class= "col-md-3"></div>
+      </div>
+    </div>
+   
         
  
         

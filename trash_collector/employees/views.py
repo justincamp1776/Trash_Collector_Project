@@ -79,10 +79,12 @@ def update_customer(request, customer_id):
         name_from_form = request.POST.get('name')
         address_from_form = request.POST.get('address')
         zip_from_form = request.POST.get('zip_code')
+        weekly_pickup_from_form = request.POST.get("weekly_pickup")
         balance_from_form = request.POST.get("balance")
         customer_to_update.name = name_from_form
         customer_to_update.address = address_from_form
         customer_to_update.zip_code = zip_from_form
+        customer_to_update.weekly_pickup = weekly_pickup_from_form
         customer_to_update.balance = balance_from_form
         customer_to_update.save()
         return HttpResponseRedirect(reverse('employees:customers'))

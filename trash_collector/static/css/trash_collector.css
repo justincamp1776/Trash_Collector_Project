@@ -4,9 +4,13 @@
 
 h6 {
   color: #080605;
-  margin-bottom: 100px;
+  margin-bottom: 60px;
 }
 
 .bottom-margin {
   margin-bottom: 75px;
+}
+
+.btn-btn-primary{
+  background-color: black;
 }
