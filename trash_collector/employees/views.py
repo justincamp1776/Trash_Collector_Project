@@ -10,15 +10,12 @@ from datetime import date
 from datetime import datetime
 
 
-# Create your views here.
 
-# TODO: Create a function for each path created in employees/urls.py. Each will need a template as well.
 
 
 @login_required
 def index(request):
     # The following line will get the logged-in user (if there is one) within any view function
-
     today2 = determine_day()
 
     logged_in_user = request.user
@@ -44,28 +41,59 @@ def index(request):
             'todays_pickups': todays_pickups,
             'one_time_pickups': one_time_pickups
         }
-
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:create'))
 
-
+# displays selected fields from the employee table on the logged in user/employee
 @login_required
 def view_profile(request):
     try:
         logged_in_user = request.user
-
         logged_in_employee = Employee.objects.get(user=logged_in_user)
-
         context = {
             'logged_in_employee' : logged_in_employee
         }
-
         return render(request, 'employees/profile.html', context)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:index'))
 
 
+ #returns all customers from the database
+@login_required
+def view_customers(request):
+        Customer = apps.get_model('customers.Customer')
+        customers = Customer.objects.all()
+        context = {
+            'customers' : customers
+        }
+        return render(request, 'employees/customers.html', context)
+
+
+# allows employee to edit customer information
+@login_required
+def update_customer(request, customer_id):
+    Customer = apps.get_model('customers.Customer')
+    customer_to_update = Customer.objects.get(id=customer_id)
+    if request.method == "POST":
+        name_from_form = request.POST.get('name')
+        address_from_form = request.POST.get('address')
+        zip_from_form = request.POST.get('zip_code')
+        balance_from_form = request.POST.get("balance")
+        customer_to_update.name = name_from_form
+        customer_to_update.address = address_from_form
+        customer_to_update.zip_code = zip_from_form
+        customer_to_update.balance = balance_from_form
+        customer_to_update.save()
+        return HttpResponseRedirect(reverse('employees:customers'))
+    else:
+        context = {
+            'customer_to_update': customer_to_update
+        }
+        return render(request, 'employees/update_customer.html', context)
+
+
+# converts the day as an integer into a day as a string
 def determine_day():
     today2 = date.today()
     today = today2.weekday()
@@ -84,6 +112,8 @@ def determine_day():
     elif today == 6:
         return "Sunday"
 
+
+# confirms pickup and increases customer balance by $20
 def confirm_pickup(request, customer_id):
     try:
         Customer = apps.get_model('customers.Customer')
@@ -98,7 +128,7 @@ def confirm_pickup(request, customer_id):
         return HttpResponseRedirect(reverse('employees:index'))
 
 
-
+# displays the pickups on each day of the week
 def view_schedule(request, week_day):
     try:
         Customer = apps.get_model('customers.Customer')
@@ -107,6 +137,7 @@ def view_schedule(request, week_day):
 
         context = {
             'future_pickups': future_pickups,
+            'week_day' : week_day
 
         }
         return render(request, 'employees/view_schedule.html', context)
@@ -115,7 +146,7 @@ def view_schedule(request, week_day):
 
 
 
-
+# allows create their proifile
 @login_required
 def create(request):
     logged_in_user = request.user
@@ -130,7 +161,7 @@ def create(request):
     else:
         return render(request, 'employees/create.html')
 
-
+# allows employees to edit their profile
 @login_required
 def edit_profile(request):
     logged_in_user = request.user

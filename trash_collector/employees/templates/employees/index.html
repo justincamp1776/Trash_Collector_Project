@@ -22,13 +22,9 @@
               <p>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }} -  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm</a></p>
               {% endfor %}
             
-    
-            <ul>
               {% for customer in one_time_pickups %}
-              <li>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}<a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm</a></li>
+              <p>{{ customer.name }} - {{customer.address}} - {{ customer.zip_code }}<a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm</a></p>
               {% endfor %}
-            </ul>
-
           </div>
          
           <div style=" text-align:right"class = "col-md-6">

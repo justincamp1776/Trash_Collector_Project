@@ -1,12 +1,24 @@
+
 {% extends 'employee_base.html' %}
 
 {% block title %} Daily Schedule {% endblock %}
 
-{% block header %} Scheduled Pickups: {% endblock %}
+{% block header %} {{week_day}} Pickups {% endblock %}
 
 {% block content %}
+<div class="container">
+    <div style="margin-top: 100px;"class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
 
-{% for customer in future_pickups %}
-    {{customer.name}} - {{customer.address}} - {{customer.zip_code}}
-{% endfor %}
+            {% for customer in future_pickups %}
+   
+            <p style="text-align:left; margin-left:90px"><strong>{{customer.name}}</strong> {{customer.address}} {{customer.zip_code}} <em>Balance:</em> {{customer.balance}}</p> <br>
+            {% endfor %}
+
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
 {% endblock %}

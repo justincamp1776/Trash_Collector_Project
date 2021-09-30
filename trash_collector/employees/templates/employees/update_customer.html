@@ -1,0 +1,27 @@
+{% extends 'employee_base.html' %}
+
+
+{% block title %} Customer Profile Edit {% endblock %}
+
+{% block header %} Update Customer Information {% endblock %}
+
+{% block content %}
+<br />
+<form  method="post">
+    {% csrf_token %}
+    Name: <input value= "{{customer_to_update.name}}" type="name" name="name" id="name">
+    <br />
+    <br />
+    Address: <input value= "{{customer_to_update.address}}" type="address" name="address" id="address">
+    <br />
+    <br />
+    Zip Code: <input value= "{{customer_to_update.zip_code}}"type="zip_code" name="zip_code" id="zip_code">
+    <br />
+    <br />
+    Balance: <input value= "{{customer_to_update.balance}}" type="balance" name="balance" id="balance">
+    <br />
+    <br />
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
