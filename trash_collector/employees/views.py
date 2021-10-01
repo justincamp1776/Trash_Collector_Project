@@ -116,7 +116,7 @@ def determine_day():
 
 
 # confirms pickup and increases customer balance by $20
-def confirm_pickup(request, customer_id):
+def customer_details(request, customer_id):
     try:
         Customer = apps.get_model('customers.Customer')
         customer_to_update = Customer.objects.get(id=customer_id)
@@ -124,7 +124,11 @@ def confirm_pickup(request, customer_id):
         customer_to_update.date_of_last_pickup = date.today()
         customer_to_update.save()
 
-        return render(request, 'employees/index.html')
+        context ={
+            'customer_to_update' : customer_to_update
+        }
+
+        return render(request, 'employees/customer_details.html', context)
 
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:index'))

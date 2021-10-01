@@ -6,13 +6,14 @@ from . import views
 
 app_name = "employees"
 urlpatterns = [
-    path('index/', views.index, name="index"),
+    path('', views.index, name="index"),
     path('create/', views.create, name="create"),
     path('edit_profile/', views.edit_profile, name="edit_profile"),
-    path('confirm_pickup/<int:customer_id>/', views.confirm_pickup, name="confirm_pickup"),
-    path('view_schedule/<str:week_day>',views.view_schedule, name="view_schedule"),
+    path('customer_details/<int:customer_id>/', views.customer_details, name="customer_details"),
+    path('view_schedule/<str:week_day>',
+         views.view_schedule, name="view_schedule"),
     path('profile/', views.view_profile, name="profile"),
     path('customers/', views.view_customers, name="customers"),
-    path('<int:customer_id>/', views.update_customer, name="update_customer"),
-  
+    path('update_customer/<int:customer_id>', views.update_customer, name="update_customer"),
+
 ]

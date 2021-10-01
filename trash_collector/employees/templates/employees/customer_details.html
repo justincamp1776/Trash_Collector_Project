@@ -1,0 +1,22 @@
+{% extends 'employee_base.html' %}
+
+{% block title %} Customer Profile {% endblock %}
+
+{% block header %} Customer Profile {% endblock %}
+<br>
+<br>
+<br>
+
+{% block content %}
+
+
+
+<p style="margin-top:50px;"><em>Name:</em> {{ customer_to_update.name }}</p>
+<p ><em>Address:</em> {{ customer_to_update.address }} </p>
+<p > <em>Zip Code:</em> {{customer_to_update.zip_code }} </p>
+<p > <em>Balcance:</em> {{customer_to_update.balance }} </p>
+<p > <em>Weekly Pickup: </em>{{customer_to_update.weekly_pickup }} </p>
+
+
+
+{% endblock %}

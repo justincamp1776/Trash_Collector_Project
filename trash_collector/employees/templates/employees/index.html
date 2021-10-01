@@ -10,9 +10,8 @@
 {% block content %}
   {% if user.is_authenticated %}
 
-
       <h6>Hello {{ logged_in_employee.name }}!</h6>
-
+ 
       <div class="container">
         <div class="row">
             <div style=" text-align:center; margin-bottom: 50px;" class = "col-md-12">
@@ -29,22 +28,22 @@
       </div>
 
       <div class="row">
-        <div class= "col-md-3"></div>
-        <div class= "col-md-6">
+        <div class= "col-md-2"></div>
+        <div class= "col-md-8">
 
           <h5 style="text-align:center; margin-bottom: 40px; margin-top: 50px;"> Today's Pickups:</h5>
             
           {% for customer in todays_pickups %}
-          <div style="text-align: left; ">
-          <p><strong>{{ customer.name }} </strong> {{customer.address}}  {{ customer.zip_code }} <em>Balance:</em> {{ customer.balance }}  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm</a></p>
+          <div style="text-align: center;">
+          <p><strong>{{ customer.name }} </strong> {{customer.address}}  {{ customer.zip_code }} <em>Balance:</em> {{ customer.balance }}  <a href= "{% url 'employees:customer_details' customer.id %}">Confirm</a></p>
           {% endfor %}
         
           {% for customer in one_time_pickups %}
-          <p><strong>{{ customer.name }} </strong> {{customer.address}}  {{ customer.zip_code }} <em>Balance:</em> {{ customer.balance }}  <a href= "{% url 'employees:confirm_pickup' customer.id %}">Confirm</a></p>
+          <p><strong>{{ customer.name }} </strong> {{customer.address}}  {{ customer.zip_code }} <em>Balance:</em> {{ customer.balance }}  <a href= "{% url 'employees:customer_details' customer.id %}">Confirm</a></p>
           {% endfor %}
         </div>
         </div>
-        <div class= "col-md-3"></div>
+        <div class= "col-md-2"></div>
       </div>
     </div>
    
